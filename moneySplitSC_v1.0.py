@@ -7,7 +7,7 @@ import pickle
 token = ""
 
 # future token
-# token = "419702622:AAEeYLczADNGF0yms6PcmPkyi3hZk0PyH3E"
+# token = ""
 
 bot = tel.Bot(token)
 
