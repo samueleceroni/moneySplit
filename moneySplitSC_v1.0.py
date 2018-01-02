@@ -4,7 +4,7 @@ import datetime
 import pickle
 
 # token to try this bot
-token = "367141453:AAFgTHYfthpJFqhxTWcGLmi1Y6wqFzfFWIM"
+token = ""
 
 # future token
 # token = "419702622:AAEeYLczADNGF0yms6PcmPkyi3hZk0PyH3E"
