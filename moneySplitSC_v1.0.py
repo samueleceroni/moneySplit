@@ -13,9 +13,8 @@ bot = tel.Bot(token)
 
 
 # Database is a dict of dict of list of tuples.
-# Ecco la struttura schematizzata:
-# database = { 'id_chat' : { 'nome_liste' : [('price', 'description'),('price', 'description'),] } }
-
+# Here is a guide line of how the database is implemented:
+# database = { 'id_chat' : { 'lists_name' : [('price', 'description'),('price', 'description'),] } }
 
 def save_obj(obj, name):
     with open('obj/'+ name + '.pkl', 'wb') as f:
