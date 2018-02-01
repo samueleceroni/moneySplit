@@ -3,11 +3,12 @@ import time
 import datetime
 import pickle
 
+import tokens
 # token to try this bot
-token = ""
+token = tokens.try_token
 
 # future token
-# token = ""
+# token = tokens.def_token
 
 bot = tel.Bot(token)
 
@@ -46,6 +47,8 @@ def sendWelcome(phrase):
     rep += "\n\n"
     rep += "To clear a list:\nclear listname || clr listname"
     rep += "\n\n"
+    rep += "To list all created lists:\nls"
+    rep += "\n\n"
     rep += "Enjoy Sborn :)\n"
     return rep
 
@@ -62,16 +65,19 @@ def remList(listname, id_chat, database):
     return rep
 
 
-def addItem(words, id_chat, database, is_one_list):
+def addItem(words, id_chat, database, is_one_list, first_is_number):
     description = ''
     if is_one_list == 0:
         listname = words[0]
-    else:
+    elif(is_one_list and first_is_number):
         listname = next(iter(database[id_chat].keys()))
-    amount = float(words[1-is_one_list])
+
+    amount = float(words[1-(is_one_list and first_is_number)])
+    
     for i, word in enumerate(words):
-        if i > (1-is_one_list):
+        if i > (1-(is_one_list and first_is_number)):
             description += word + ' '
+    
     database[id_chat][listname].append((amount, description))
     rep = "List updated!"
     return rep
@@ -110,6 +116,11 @@ def rem_chat(id_chat, database):
         rep = 'Chat eliminata. Puoi arrestare ed eliminare il bot!'
         return rep
 
+def listLists(id_chat, database):
+    rep = 'Here is the list of lists in this chat:\n'
+    for listname in database[id_chat]:
+        rep += listname +'\n'
+    return rep
 
 def get_updates(bot, last_update_id):
     updates = []
@@ -137,6 +148,8 @@ def reply(update, database):
     id_chat = update['message']['chat']['id']
     words = text.split(' ')
     is_one_list = 0
+    first_is_number = 0
+    rep = ''
 
     try:
         # if chatter never sent a message to this bot it creates its instance
@@ -154,17 +167,25 @@ def reply(update, database):
                 # except statement should happen only with an integer or something like that
                 break
 
-        #control which is the first word in words so that i can execute the correct command
-        if len(database[id_chat]) == 1:
-            try:
-                float(words[0])
-                is_one_list = 1
-                #addItem(words, id_chat, database, is_one_list)
-            except:
-                pass
+        if (len(database[id_chat]) == 1):
+            is_one_list = 1
+            
+        try:
+            float(words[0])
+            first_is_number = 1
+        except:
+            pass
 
-        if (words[0] in database[id_chat]) or is_one_list == 1:
-            rep = addItem(words, id_chat, database, is_one_list)
+        # when not specifiend and when possible the listname is added automatically
+        if ((is_one_list) and (len(words)==1) and (not first_is_number) and (words[0]!='add') and (words[0]!='sborn') and (words[0]!='ls') and (words[0] not in database[id_chat])):
+            words.append(next(iter(database[id_chat].keys())))
+
+        if ((len(database[id_chat])== 0) and words[0]!='sborn' and words[0]!='add' and words[0]!='ls') or ((len(words)== 1) and words[0]=='add'):
+            rep = sendHelp();
+
+        # add an item in one list
+        elif (words[0] in database[id_chat]) or (is_one_list and first_is_number):
+            rep = addItem(words, id_chat, database, is_one_list, first_is_number)
 
         elif words[0] == 'add':
             if words[1] not in database[id_chat]:
@@ -179,7 +200,7 @@ def reply(update, database):
                 rep = "List doesn't exist!"
 
         elif words[0] == 'show':
-            if words[1] in database[id_chat]:
+            if (words[1] in database[id_chat]):
                 rep = showList(words[1], id_chat, database)
                 rep += '\n'
                 rep += showTotal(words[1], id_chat, database)
@@ -200,8 +221,12 @@ def reply(update, database):
 
         elif words[0] == 'sborn':
             rep = "You're a great Sborner!"
+        
         elif words[0] == '/start':
             rep = sendWelcome("Hi! This is SplitMoney bot!")
+
+        elif (words[0]=='ls'):
+            rep = listLists(id_chat, database)
 
         else:
             rep = sendHelp()
@@ -216,6 +241,7 @@ def reply(update, database):
 
     # save the database in .pkl format
     save_obj(database, "database")
+    
     # save a legible copy of database
     file = open("obj/database.txt", "w+")
     file.write(str(database))
