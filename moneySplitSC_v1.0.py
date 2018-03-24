@@ -5,10 +5,10 @@ import pickle
 
 import tokens
 # token to try this bot
-token = tokens.try_token
+#token = tokens.try_token
 
 # future token
-# token = tokens.def_token
+token = tokens.def_token
 
 bot = tel.Bot(token)
 
