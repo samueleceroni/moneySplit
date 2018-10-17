@@ -24,4 +24,6 @@ clear listname || clr listname
 
 To list all created lists:
 ls
+
+Note: if you have a list only, you can omit the listname!
 ```
