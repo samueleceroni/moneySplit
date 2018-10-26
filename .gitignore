@@ -2,3 +2,4 @@ tokens.py
 obj/database.pkl
 obj/database.txt
 __pycache__
+.idea/*
