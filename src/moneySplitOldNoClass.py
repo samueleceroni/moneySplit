@@ -1,3 +1,4 @@
+'''# main.py
 import telegram as tel
 import time
 import datetime
@@ -11,12 +12,13 @@ import tokens
 token = tokens.def_token
 
 bot = tel.Bot(token)
-
+'''
 
 # Database is a dict of dict of list of tuples.
 # Here is a guide line of how the database is implemented:
 # database = { 'id_chat' : { 'lists_name' : [('price', 'description'),('price', 'description'),] } }
 
+'''# database.py
 def save_obj(obj, name):
     with open('obj/'+ name + '.pkl', 'wb') as f:
         pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
@@ -25,8 +27,9 @@ def save_obj(obj, name):
 def load_obj(name):
     with open('obj/' + name + '.pkl', 'rb') as f:
         return pickle.load(f)
+'''
 
-
+'''# message.py
 def sendHelp():
     rep = sendWelcome("Opss.. Something went wrong")
     return rep
@@ -51,8 +54,9 @@ def sendWelcome(phrase):
     rep += "\n\n"
     rep += "Enjoy Sborn :)\n"
     return rep
+'''
 
-
+''' #user
 def addList(listname, id_chat, database):
     database[id_chat][listname] = []
     rep = "List created!"
@@ -63,8 +67,9 @@ def remList(listname, id_chat, database):
     del database[id_chat][listname]
     rep = 'List removed!'
     return rep
+'''
 
-
+'''# 
 def addItem(words, id_chat, database, is_one_list, first_is_number):
     description = ''
     if is_one_list == 0:
@@ -81,15 +86,16 @@ def addItem(words, id_chat, database, is_one_list, first_is_number):
     database[id_chat][listname].append((amount, description))
     rep = "List updated!"
     return rep
-
-
+'''
+'''# message.py
 def showList(listname, id_chat, database):
     rep = 'Here is ' + listname + ' list:\n'
     for amount, description in database[id_chat][listname]:
         rep += str(amount) + ' ' + description + '\n'
     return rep
+'''
 
-
+'''# message.py
 def showTotal(listname, id_chat, database):
     rep = 'Here is ' + listname + ' list total:\n'
     total = 0
@@ -97,31 +103,35 @@ def showTotal(listname, id_chat, database):
         total += amount
     rep += str(total) + ' €'
     return rep
-
-
+'''
+'''
 def clearList(listname, id_chat, database):
     rep = "List " + listname + " cleared!"
     database[id_chat][listname].clear()
     return rep
+'''
 
-
+'''# database.py
 def add_chat(id_chat, database):
     database[id_chat] = {}
     return
-
 
 def rem_chat(id_chat, database):
     if id_chat in database:
         del database[id_chat]
         rep = 'Chat eliminata. Puoi arrestare ed eliminare il bot!'
         return rep
+'''
 
+'''# user.py
 def listLists(id_chat, database):
     rep = 'Here is the list of lists in this chat:\n'
     for listname in database[id_chat]:
         rep += listname +'\n'
     return rep
+'''
 
+'''# main.py
 def get_updates(bot, last_update_id):
     updates = []
     try:
@@ -137,8 +147,10 @@ def get_updates(bot, last_update_id):
 
 def ignore(update):
     return
+'''
 
 
+'''# replier.py
 def reply(update, database):
 
     # load database
@@ -247,8 +259,8 @@ def reply(update, database):
     file.write(str(database))
     file.close()
     # print(database)
-
-
+'''
+''' # main.py
 def main():
     print('started')
     print(bot.get_me())
@@ -275,10 +287,12 @@ def main():
                 now = datetime.datetime.now()
                 print('Errore -> ' + str(exc) + ': ' + now.strftime("%Y-%m-%d %H:%M:%S"))
                 print(update)
+'''
 
-
+'''
 if __name__ == '__main__':
     main()
+'''
 
 """
 
