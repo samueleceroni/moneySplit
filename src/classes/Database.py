@@ -1,18 +1,20 @@
-def save_obj(obj, name):
-    with open('obj/'+ name + '.pkl', 'wb') as f:
-        pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
+class Database:
+    def __init__(self):
+        self.__chatSet = {}
+        self.__totChat = 0
 
+    def addChat(self, idChat, chatName):
+        if(not self.__chatSet.contains_key(idChat)):
+            self.__chatSet[idChat] = Chat(chatName, idChat)
+            self.__totChat++
+            return True
+        else:
+            return False
 
-def load_obj(name):
-    with open('obj/' + name + '.pkl', 'rb') as f:
-        return pickle.load(f)
-
-def add_chat(id_chat, database):
-    database[id_chat] = {}
-    return
-
-def rem_chat(id_chat, database):
-    if id_chat in database:
-        del database[id_chat]
-        rep = 'Chat eliminata. Puoi arrestare ed eliminare il bot!'
-        return rep
+    def removeChat(self, idChat):
+        if(self.__chatSet.contains_key(idChat)):
+            del self.__chatSet[idChat]
+            self.__totChat--
+            return True
+        else:
+            return False

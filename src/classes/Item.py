@@ -1,8 +1,4 @@
 class Item:
-	__description = ""
-	__amount = 0.0
-	__time = ""
-
 	def __init__(self, description, amount):
 		self.__description = description
 		self.__amount = amount
@@ -10,13 +6,16 @@ class Item:
 		self.__time = now.strftime("%Y-%m-%d %H:%M")
 
 	def getDescription(self):
-		return __description
+		return self.__description
 
 	def getAmount(self):
-		return __amount
+		return self.__amount
 
 	def getTime(self):
-		return __time
+		return self.__time
+
+	def toStringVerbose(self):
+		rep="[" + self.__time + "]: " + self.toString()
 
 	def toString(self):
-		return "[" + __time + "]: " + __amount + "€ " + __description
+		return self.__amount + "€ " + self.__description

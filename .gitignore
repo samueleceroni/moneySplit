@@ -1,5 +1,4 @@
 tokens.py
-obj/database.pkl
-obj/database.txt
+obj/*
 __pycache__
 .idea/*
