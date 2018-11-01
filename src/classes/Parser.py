@@ -1,6 +1,6 @@
 class Parser:
 	# command
-	# idChat
+	# idChat -
 	# listname
 	# amount
 	# description
@@ -12,10 +12,9 @@ class Parser:
 	    self.__idChat = update['message']['chat']['id']
 	    words = text.split(' ')
 	    firstIsNumber = False
-	    	    
-	    for i in range(len(words)):
-	    	if i >= 2:
-	    		break
+
+	    # lower the command and the listname
+	    for i in range(2):
 	    	try:
 	    		if isinstance(words[i], int) or isinstance(words[i], float):
 	    			break
@@ -23,13 +22,15 @@ class Parser:
 	    	except:
 	    		break
 
+	    # check if the first word of the message is a number
+	    # this should happen only when adding an item in a single-list chat
 	    try:
 	    	float(words[0])
 	    	firstIsNumber = True
 	    except:
 	    	pass
 	    
-	    if not firstIsNumber:
+	    if firstIsNumber:
 	    	self.__command = 
 
 
