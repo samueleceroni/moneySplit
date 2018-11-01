@@ -18,3 +18,6 @@ class Database:
             return True
         else:
             return False
+
+    def checkChat(self, idChat):
+        return self.__chatSet.contains_key(idChat)

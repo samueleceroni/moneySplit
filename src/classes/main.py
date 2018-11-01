@@ -12,7 +12,7 @@ token = tokens.def_token
 
 bot = tel.Bot(token)
 
-
+'''
 def get_updates(bot, last_update_id):
     updates = []
     try:
@@ -24,7 +24,7 @@ def get_updates(bot, last_update_id):
         print("Error -> "+ str(exc) + ': ' + now.strftime("%Y-%m-%d %H:%M:%S"))
         time.sleep(1)
     return updates, last_update_id
-
+'''
 
 def ignore(update):
     return

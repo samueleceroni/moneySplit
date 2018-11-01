@@ -1,14 +1,15 @@
 def reply(update, database):
-
     # load database
     database = load_obj("database")
 
+'''
     text = update['message']['text']
     id_chat = update['message']['chat']['id']
     words = text.split(' ')
     is_one_list = 0
     first_is_number = 0
     rep = ''
+'''
 
     try:
         # if chatter never sent a message to this bot it creates its instance
