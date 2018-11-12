@@ -3,10 +3,15 @@ from util import Util
 
 class Item:
     def __init__(self, description, amount):
+        if type(description) is not str:
+            raise AttributeError
         self.__description = description
-        self.__amount = amount
-        #self.__time = now.strftime("%Y-%m-%d %H:%M:%S")
+        try:
+            self.__amount = amount
+        except AttributeError:
+            raise AttributeError
         now = datetime.datetime.now()
+        #self.__time = now.strftime("%Y-%m-%d %H:%M:%S") #detailed version, not useful
         self.__time = now.strftime("%Y-%m-%d %H:%M")
 
     def getDescription(self):
