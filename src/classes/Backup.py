@@ -2,12 +2,12 @@ import pickle
 
 class Backup():
 	def save(object, databaseName):
-		with open('../../obj/' + databaseName + '.pkl', 'wb') as f:
-			pickle.dump(object, f, pickle.HIGHEST_PROTOCOL)
+		with open('../../res/' + databaseName + '.pkl', 'wb') as databaseFile:
+			pickle.dump(object, databaseFile, pickle.HIGHEST_PROTOCOL)
 
 	def load(databaseName):
-		with open('../../obj/' + databaseName + '.pkl', 'rb') as f:
-			return pickle.load(f)
+		with open('../../res/' + databaseName + '.pkl', 'rb') as databaseFile:
+			return pickle.load(databaseFile)
 
 # TODO how to handle excpetion FileNotFoundException ? return null or try handle exceptions?
 

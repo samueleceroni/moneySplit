@@ -27,3 +27,11 @@ ls
 
 Note: if you have a list only, you can omit the listname!
 ```
+
+Project main folder
+src -- Sorgenti
+res -- Risorse (icone, file di configurazione...)
+lib -- Librerie esterne (e.g. file .jar, .so, .dll...)
+bin -- Binario (con copia delle risorse)
+doc -- Documentazione
+README.md

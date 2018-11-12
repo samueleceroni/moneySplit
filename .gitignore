@@ -1,4 +1,4 @@
 tokens.py
-obj/*
+res/*
 __pycache__
 .idea/*
