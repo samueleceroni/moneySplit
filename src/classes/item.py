@@ -1,4 +1,5 @@
 import datetime
+from util import Util
 
 class Item:
     def __init__(self, description, amount):
@@ -23,16 +24,17 @@ class Item:
     def toString(self):
         return str(self.__amount) + "€ " + self.__description
 
-
+'''
 def main():
     myItem = Item("prova", 1.0)
-    print(str(myItem.getDescription()) + "\n")
-    print(str(myItem.getAmount()) + "\n")
-    print(myItem.getTime() + "\n")
-    print(myItem.toString() + "\n")
-    print(myItem.toStringVerbose() + "\n")
+    Util.log(str(myItem.getDescription()))
+    Util.log(str(myItem.getAmount()))
+    Util.log(myItem.getTime())
+    Util.log(myItem.toString())
+    Util.log(myItem.toStringVerbose())
 
 
 
 if __name__ == '__main__':
     main()
+'''
