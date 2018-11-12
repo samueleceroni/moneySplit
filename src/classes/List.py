@@ -2,7 +2,7 @@ class List:
 	def __init__ (self, listname):
 		self.__lastItem = 0
 		self.__items = {}
-		self.__totalAmount = 0
+		self.__totalAmount = 0.0
 		self.__listname = listname
 
 	def addElement(self, newItem):
@@ -27,6 +27,6 @@ class List:
 		rep = "List " + self.__listname + '\n'
 		for id in range(self.__lastItem):
 			if(self.__items.contains_key(id)):
-				rep += (id.toString() + ": ")
+				rep += (str(id) + ": ")
 				rep += self.__items[id].toString()
 				rep += '\n'

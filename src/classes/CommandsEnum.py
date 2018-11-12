@@ -1,5 +1,6 @@
 from enum import Enum, auto
-class Command(Enum):
+
+class CommandsEnum(Enum):
 	ADD_LIST = auto()
 	REM_LIST = auto()
 	ADD_ITEM = auto()
