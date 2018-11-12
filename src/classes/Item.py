@@ -18,8 +18,7 @@ class Item:
         return self.__time
 
     def toStringVerbose(self):
-        rep = "[" + str(self.__time) + "]: "
-        rep += self.toString()
+        return "[" + str(self.__time) + "]: " + self.toString()
 
     def toString(self):
         return str(self.__amount) + "€ " + self.__description
