@@ -3,20 +3,20 @@ import pickle
 
 class Util:
 
-	__logFileName = "log"
+    __logFileName = "log"
 
-	def __getActualMoment():
-		return datetime.datetime.now()
+    def __getActualMoment():
+        return datetime.datetime.now()
 
-	def log(logMessage):
-		with open('../../res/' + Util.__logFileName + '.txt', 'a') as logFile:
-			logFile.write("[" + Util.getTimeDetailed() + "]: " +\
-						  "{" + logMessage + "}\n\n")
-	def getTime():
-		return Util.__getActualMoment().strftime("%Y-%m-%d %H:%M")
+    def log(logMessage):
+        with open('../../res/' + Util.__logFileName + '.txt', 'a') as logFile:
+            logFile.write("[" + Util.getTimeDetailed() + "]: " +\
+                          "{" + logMessage + "}\n\n")
+    def getTime():
+        return Util.__getActualMoment().strftime("%Y-%m-%d %H:%M")
 
-	def getTimeDetailed():
-		return Util.__getActualMoment().strftime("%Y-%m-%d %H:%M:%S")
+    def getTimeDetailed():
+        return Util.__getActualMoment().strftime("%Y-%m-%d %H:%M:%S")
 
 
 class Backup():
@@ -30,11 +30,11 @@ class Backup():
 
 
 def main():
-	Util.log("Util.__logFileName is private and is not accessible")
-	print(Util.getTime())
-	print(Util.getTimeDetailed())
-	#print(Util.__getActualMoment())
-	
+    Util.log("Util.__logFileName is private and is not accessible")
+    print(Util.getTime())
+    print(Util.getTimeDetailed())
+    #print(Util.__getActualMoment())
+    
 
 if __name__ == '__main__':
-	main()
+    main()
