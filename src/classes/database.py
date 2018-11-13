@@ -40,20 +40,35 @@ class Database:
 
 from item import Item
 from util import Util
+from util import Backup
+import time
+
 def main():
     myDatabase = Database()
     for k in range (10):
         myDatabase.addChat("myNewChat"+str(k),"123456789"+str(k))
         myChat = myDatabase.getChat("123456789"+str(k))
-        Util.log(myChat.getName())
-        Util.log(myChat.getKey())
+        #Util.log(myChat.getName())
+        #Util.log(myChat.getKey())
         for i in range(10):
             myChat.addList("newList"+str(i+1))
             for j in range (10):
                 myChat.getList("newList"+str(i+1)).addElement(Item("newItem" + str(j+1), j+1))
+        #for listed in myChat.getListsName():
+        #    Util.log(myChat.getList(listed).toString())
+
+    thisMoment = time.time()
+    Backup.save(myDatabase, "dat")
+    myDatabase = Backup.load("dat")
+    nextMoment = time.time()
+    Util.log(str(nextMoment-thisMoment))
+
+    for k in range (10):
+        myChat = myDatabase.getChat("123456789"+str(k))
+        Util.log(myChat.getName())
+        Util.log(myChat.getKey())
         for listed in myChat.getListsName():
             Util.log(myChat.getList(listed).toString())
-        myChat.remList("newList1")
 
 
 if __name__ == '__main__':
