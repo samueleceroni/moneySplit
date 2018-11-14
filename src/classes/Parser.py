@@ -1,6 +1,6 @@
 class Parser:
 	# command
-	# idChat -
+	# idChat
 	# listname
 	# amount
 	# description
@@ -8,10 +8,56 @@ class Parser:
 	# supposeOnlyOneList
 
 	def __init__(self, update):
-		text = update['message']['text']
-	    self.__idChat = update['message']['chat']['id']
-	    words = text.split(' ')
-	    firstIsNumber = False
+	    self.idChat = update['message']['chat']['id']
+		#self.__chatName = update['message']['chat'][..]
+		entireText = update['message']['text']
+	    # if there is, delete '/' character
+	    if entireText[0]=='/':
+	    	entireText = entireText[1:]
+	    # I split the entire text in words where separated by spaces
+	    self.__wordsText = entireText.split(' ')
+
+	    if self.__wordsText[0] == "add":
+	    	self.__parseAddList() #TODO
+	    	return
+
+	    if self.__wordsText[0] == "remlist": #change in the API !!!
+	    	self.__parseRemList() #TODO
+	    	return
+
+	    if self.__wordsText[0] == "remitem":
+	    	self.__parseRemItem() #TODO
+	    	return
+
+	    if self.__wordsText[0] == "show":
+	    	self.__parseShow() #TODO
+	    	return
+
+	    if self.__wordsText[0] == "total":
+	    	self.__parseTotal() #TODO
+	    	return
+
+	    self.__parseAddItem() #TODO
+	    return
+
+	def __parseAddList(self):
+	def __parseRemList(self):
+	def __parseRemItem(self):
+	def __parseShow(self):
+	def __parseTotal(self):
+	def __parseAddItem(self):
+	
+
+
+
+
+
+
+
+
+
+
+
 
 	    # lower the command and the listname
 	    for i in range(2):

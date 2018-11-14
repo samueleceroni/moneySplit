@@ -297,18 +297,20 @@ if __name__ == '__main__':
 """
 
 AVAIABLE COMMAND:
+*-> = available with one list only
 ADD LIST -> add 'listname'
 
-REM LIST -> rem 'listname'
+REM LIST -> remlist 'listname'
+        *-> remlist
 
-ADD ITEM -> 'listname' 'price' 'description'
-
-[(REM ITEM ->  del 'listname' 'price' 'description') || (REM ITEM ->  delete 'listname' 'price' 'description')] 
-
-CLS LIST -> cls 'listname' || close 'listname'
+REM ITEM ->  remitem 'listname' 'num'
+        *->  remitem 'num'
 
 SHOW LIST -> show 'listname'
+         *-> show
 
 SHOW TOTAL LIST -> total 'listname'
 
+ADD ITEM -> 'listname' 'price' 'description'
+        *-> 'price' 'description'
 """
