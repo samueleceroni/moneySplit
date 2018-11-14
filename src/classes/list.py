@@ -1,5 +1,4 @@
 from item import Item
-from util import Util
 
 class List:
     def __init__ (self, listname):
@@ -38,6 +37,8 @@ class List:
                 rep += self.__items[id].toString()
         return rep
 
+'''
+from util import Util
 
 def main():
     myList = List("newList")
@@ -53,3 +54,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+'''

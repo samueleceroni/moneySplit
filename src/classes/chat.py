@@ -1,6 +1,4 @@
 from list import List
-from item import Item
-from util import Util
 
 class Chat:
     def __init__(self, name, key):
@@ -45,6 +43,9 @@ class Chat:
             raise ValueError
 
 '''
+from item import Item
+from util import Util
+
 def main():
     myChat = Chat("myNewChat","123456789")
     for i in range(10):

@@ -1,4 +1,3 @@
-import datetime
 from util import Util
 
 class Item:
