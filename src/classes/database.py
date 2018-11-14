@@ -37,7 +37,7 @@ class Database:
             raise ValueError
         return self.__chatSet[idChat]
 
-
+'''
 from item import Item
 from util import Util
 from util import Backup
@@ -73,3 +73,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+'''

@@ -7,12 +7,11 @@ class Item:
             raise AttributeError
         self.__description = description
         try:
-            self.__amount = amount
+            self.__amount = float(amount)
         except AttributeError:
             raise AttributeError
-        now = datetime.datetime.now()
-        #self.__time = now.strftime("%Y-%m-%d %H:%M:%S") #detailed version, not useful
-        self.__time = now.strftime("%Y-%m-%d %H:%M")
+        #self.__time = Util.getDetailedTime()
+        self.__time = Util.getTime()
 
     def getDescription(self):
         return self.__description
@@ -31,7 +30,7 @@ class Item:
 
 '''
 def main():
-    myItem = Item("prova", 1.0)
+    myItem = Item("prova", "1.0")
     Util.log(str(myItem.getDescription()))
     Util.log(str(myItem.getAmount()))
     Util.log(myItem.getTime())
