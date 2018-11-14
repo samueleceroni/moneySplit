@@ -1,3 +1,5 @@
+from commandsEnum import CommandsEnum
+
 class Parser:
 	# command
 	# idChat
@@ -8,7 +10,7 @@ class Parser:
 	# supposeOnlyOneList
 
 	def __init__(self, update):
-	    self.idChat = update['message']['chat']['id']
+	    self.__idChat = update['message']['chat']['id']
 		#self.__chatName = update['message']['chat'][..]
 		entireText = update['message']['text']
 	    # if there is, delete '/' character
@@ -37,19 +39,61 @@ class Parser:
 	    	self.__parseTotal() #TODO
 	    	return
 
+	    if self.__wordsText[0] == "ls":
+	    	self.__parseTotal() #TODO
+	    	return
+
 	    self.__parseAddItem() #TODO
 	    return
 
 	def __parseAddList(self):
+		# "add listname"
+		self.__command = CommandsEnum.ADD_LIST
+		self.__listname = ''
+		for i in range(1, len(self.__wordsText) - 1)
+			self.__listname += self.__wordsText[i]
+		if self.__listname == '':
+			raise AttributeError("I can't add list if I haven't the listname, dude")
+
 	def __parseRemList(self):
+		self.__command = CommandsEnum.REM_LIST
+		self.__listname = ''
+		for i in range(1, len(self.__wordsText) - 1)
+			self.__listname += (self.__wordsText[i] + ' ')
+		if self.__listname == '':
+			raise AttributeError("I can't remove the list if I haven't the listname, dude")
+		
 	def __parseRemItem(self):
+		self.__command = CommandsEnum.REM_ITEM
+		try:
+			self.__itemNumToDelete = float(words[1])
+			self.__supposeOneList = True
+			if len(self.__wordsText) > 2:
+				raise AttributeError("You entered too many parameters dude!")
+			return
+		except ValueError:
+			pass
+		
+		
 	def __parseShow(self):
+		self.__command = CommandsEnum.SHOW_LIST
+		
 	def __parseTotal(self):
+		self.__command = CommandsEnum.SHOW_TOTAL
+		
 	def __parseAddItem(self):
+		self.__command = CommandsEnum.ADD_ITEM
+
+	def __parseShowListsNames(self):
+		self.__command = CommandsEnum.SHOW_ALL_LISTS_NAMES
+		
 	
 
+	def getIdChat(self):
+		return self.__idChat
 
-
+	def getCommand(self):
+		return self.__command
 
 
 

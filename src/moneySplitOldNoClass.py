@@ -313,4 +313,7 @@ SHOW TOTAL LIST -> total 'listname'
 
 ADD ITEM -> 'listname' 'price' 'description'
         *-> 'price' 'description'
+
+SHOW ALL LISTS NAME -> ls
+
 """
