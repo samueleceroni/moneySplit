@@ -50,12 +50,16 @@ class Parser:
     def __parseAddList(self):
         # "add listname"
         self.__command = CommandsEnum.ADD_LIST
-        self.__listname = Parser.__parseListName(self.__wordsText[1:])
+        self.__listname = Parser.__linkWordsFromVector(self.__wordsText[1:])
+        if self.__listname == "":
+            raise AttributeError("I can't remove the list if I haven't the listname, dude")
         return
 
     def __parseRemList(self):
         self.__command = CommandsEnum.REM_LIST
-        self.__listname = Parser.__parseListName(self.__wordsText[1:])
+        self.__listname = Parser.__linkWordsFromVector(self.__wordsText[1:])
+        if self.__listname == "":
+            raise AttributeError("I can't remove the list if I haven't the listname, dude")
         return
 
     def __parseRemItem(self):
@@ -74,6 +78,7 @@ class Parser:
             return
         except ValueError: # the second word is not the number, so it is the name of the list
             pass
+            self.__supposeOneList = True
         if len(self.__wordsText) <= 2:
             raise AttributeError("You have to insert the name of the list and the index of the item")
         # the last word should be the number
@@ -86,17 +91,19 @@ class Parser:
             self.__supposeOneList = False
         except AttributeError as exc:
             raise exc
-        self.__listname = Parser.__parseListName(self.__wordsText[1:-1])
+        self.__listname = Parser.__linkWordsFromVector(self.__wordsText[1:-1])
         return
         
     def __parseShow(self):
         self.__command = CommandsEnum.SHOW_LIST
-        self.__listname = Parser.__parseListName(self.__wordsText[1:])
+        self.__listname = Parser.__linkWordsFromVector(self.__wordsText[1:])
+        self.__supposeOneList = True if self.__listname == "" else False
         return
 
     def __parseTotal(self):
         self.__command = CommandsEnum.SHOW_TOTAL
-        self.__listname = Parser.__parseListName(self.__wordsText[1:])
+        self.__listname = Parser.__linkWordsFromVector(self.__wordsText[1:])
+        self.__supposeOneList = True if self.__listname == "" else False
         return
 
     def __parseShowListsNames(self):
@@ -109,17 +116,18 @@ class Parser:
             checkNum = float(self.__wordsText[0])
             self.__amount = checkNum
             self.__supposeOneList = True
-            self.__description = Parser.__parseDescription(self.__wordsText[1:])
+            self.__description = Parser.__linkWordsFromVector(self.__wordsText[1:])
             return
         except ValueError:
+            self.__supposeOneList = False
             pass
         #check if at least an element is the price
         for i in range(1, len(self.__wordsText) - 1):
             try:
                 checkNum = float(self.__wordsText[i])
                 self.__amount = checkNum
-                self.__listname = Parser.__parseListName(self.__wordsText[:i])
-                self.__description = Parser.__parseDescription(self.__wordsText[i+1:])
+                self.__listname = Parser.__linkWordsFromVector(self.__wordsText[:i])
+                self.__description = Parser.__linkWordsFromVector(self.__wordsText[i+1:])
                 return
             except ValueError: # normal, when the current word is not a number
                 pass
@@ -140,15 +148,6 @@ class Parser:
             except ValueError:
                 strVectWords[i] = strVectWords[i].lower()
         return strVectWords
-
-    def __parseListName(strVectListName):
-        listname = Parser.__linkWordsFromVector(strVectListName)
-        if listname == '':
-            raise AttributeError("I can't remove the list if I haven't the listname, dude")
-        return listname
-
-    def __parseDescription(strVectDescription):
-        return Parser.__linkWordsFromVector(strVectDescription)
 
     def __linkWordsFromVector(strVect):
         linkedWords = ''
@@ -231,6 +230,17 @@ def main():
     print(parsedQuery.getCommand() == CommandsEnum.REM_ITEM)
     print(parsedQuery.getSupposeOneList() == True)
     print("Second test Completed : REM_ITEM\n")
+
+    queryString = "show sbornList"
+    parsedQuery = Parser(queryString)
+    print(parsedQuery.getCommand() == CommandsEnum.SHOW_LIST)
+    print(parsedQuery.getListName() == "sbornlist")
+    print(parsedQuery.getSupposeOneList() == False)
+    queryString = "show"
+    parsedQuery = Parser(queryString)
+    print(parsedQuery.getCommand() == CommandsEnum.SHOW_LIST)
+    print(parsedQuery.getSupposeOneList() == True)
+    print("Third test Completed : SHOW_LIST\n")
 
     queryString = "sbornList 3 sbornDescription"
     parsedQuery = Parser(queryString)
