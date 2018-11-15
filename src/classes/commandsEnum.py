@@ -1,13 +1,13 @@
-from enum import Enum, auto
-
+from enum import Enum, unique
+@unique
 class CommandsEnum(Enum):
-	ADD_LIST = auto()
-	REM_LIST = auto()
-	ADD_ITEM = auto()
-	REM_ITEM = auto()
-	SHOW_LIST = auto()
-	SHOW_TOTAL = auto()
-	SHOW_ALL_LISTS_NAMES = auto()
+	ADD_LIST = 0
+	REM_LIST = 1
+	ADD_ITEM = 2
+	REM_ITEM = 3
+	SHOW_LIST = 4
+	SHOW_TOTAL = 5
+	SHOW_ALL_LISTS_NAMES = 6
 
 """
 
