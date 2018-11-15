@@ -173,6 +173,9 @@ class Parser:
     def getDescription(self):
         return self.__description
 
+    def getSupposeOneList(self):
+        return self.__supposeOneList
+
 """
 AVAIABLE COMMAND:
 ADD LIST -> add 'listname'
@@ -201,6 +204,34 @@ def main():
     print((parsedQuery.getListName() == "sbornList") == False)
     print("First test Completed : ADD_LIST\n")
 
+    queryString = "Remlist sbornList"
+    parsedQuery = Parser(queryString)
+    print(parsedQuery.getCommand() == CommandsEnum.REM_LIST)
+    print(parsedQuery.getListName() == "sbornlist")
+    print("Second test Completed : REM_LIST\n")
+
+    queryString = "Remitem sbornList 3"
+    parsedQuery = Parser(queryString)
+    print(parsedQuery.getCommand() == CommandsEnum.REM_ITEM)
+    print(parsedQuery.getListName() == "sbornlist")
+    print(parsedQuery.getSupposeOneList() == False)
+    queryString = "Remitem sbornList 3.5"
+    try:
+        parsedQuery = Parser(queryString)
+        print(True == False)
+    except AttributeError:
+        print(True == True)
+    queryString = "Remitem sbornList 3"
+    parsedQuery = Parser(queryString)
+    print(parsedQuery.getCommand() == CommandsEnum.REM_ITEM)
+    print(parsedQuery.getListName() == "sbornlist")
+    print(parsedQuery.getSupposeOneList() == False)
+    queryString = "Remitem 3"
+    parsedQuery = Parser(queryString)
+    print(parsedQuery.getCommand() == CommandsEnum.REM_ITEM)
+    print(parsedQuery.getSupposeOneList() == True)
+    print("Second test Completed : REM_ITEM\n")
+
     queryString = "sbornList 3 sbornDescription"
     parsedQuery = Parser(queryString)
     print(parsedQuery.getCommand() == CommandsEnum.ADD_ITEM)
@@ -208,13 +239,8 @@ def main():
     print(parsedQuery.getAmount() == 3.0)
     print(parsedQuery.getDescription() == "sbornDescription")
     print((parsedQuery.getDescription() == "sborndescription") == False)
-    print("Second test Completed : ADD_ITEM\n")
+    print("Third test Completed : ADD_ITEM\n")
 
-''' queryString = "Add sbornList"
-    parsedQuery = Parser(queryString)
-    print(parsedQuery.getCommand() == CommandsEnum.ADD_LIST)
-    print((parsedQuery.getListName() == "sbornList") == False)
-'''
 
 
 if __name__ == '__main__':
