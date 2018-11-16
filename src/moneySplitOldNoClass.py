@@ -310,6 +310,7 @@ SHOW LIST -> show 'listname'
          *-> show
 
 SHOW TOTAL LIST -> total 'listname'
+               *-> total
 
 ADD ITEM -> 'listname' 'price' 'description'
         *-> 'price' 'description'

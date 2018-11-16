@@ -41,7 +41,7 @@ class Parser:
             return
 
         if self.__wordsText[0] == "ls":
-            self.__parseTotal() #TODO
+            self.__parseShowListsNames() #TODO
             return
 
         self.__parseAddItem() #TODO
@@ -50,6 +50,8 @@ class Parser:
     def __parseAddList(self):
         # "add listname"
         self.__command = CommandsEnum.ADD_LIST
+        for i in range(1,len(self.__wordsText)):
+            self.__wordsText[i] = self.__wordsText[i].lower()
         self.__listname = Parser.__linkWordsFromVector(self.__wordsText[1:])
         if self.__listname == "":
             raise AttributeError("I can't remove the list if I haven't the listname, dude")
@@ -108,6 +110,8 @@ class Parser:
 
     def __parseShowListsNames(self):
         self.__command = CommandsEnum.SHOW_ALL_LISTS_NAMES
+        if len(self.__wordsText) > 1:
+            raise AttributeError("Command ls takes no parameters dude!")
         return
 
     def __parseAddItem(self):
@@ -152,8 +156,8 @@ class Parser:
     def __linkWordsFromVector(strVect):
         linkedWords = ''
         for word in strVect:
-            linkedWords += word
-        return linkedWords
+            linkedWords += (word + ' ')
+        return linkedWords[:-1] # I remove the last space character
     '''
         GETTERS
     '''
@@ -191,7 +195,7 @@ SHOW TOTAL LIST -> total 'listname'
 
 """
 
-
+"""
 def main():
     queryString = "add sbornList"
     parsedQuery = Parser(queryString)
@@ -242,6 +246,17 @@ def main():
     print(parsedQuery.getSupposeOneList() == True)
     print("Third test Completed : SHOW_LIST\n")
 
+    queryString = "total sbornList sbuRm"
+    parsedQuery = Parser(queryString)
+    print(parsedQuery.getCommand() == CommandsEnum.SHOW_TOTAL)
+    print(parsedQuery.getListName() == "sbornlist sburm")
+    print(parsedQuery.getSupposeOneList() == False)
+    queryString = "TOTAL"
+    parsedQuery = Parser(queryString)
+    print(parsedQuery.getCommand() == CommandsEnum.SHOW_TOTAL)
+    print(parsedQuery.getSupposeOneList() == True)
+    print("Third test Completed : SHOW_TOTAL\n")
+
     queryString = "sbornList 3 sbornDescription"
     parsedQuery = Parser(queryString)
     print(parsedQuery.getCommand() == CommandsEnum.ADD_ITEM)
@@ -251,7 +266,18 @@ def main():
     print((parsedQuery.getDescription() == "sborndescription") == False)
     print("Third test Completed : ADD_ITEM\n")
 
+    queryString = "ls"
+    parsedQuery = Parser(queryString)
+    print(parsedQuery.getCommand() == CommandsEnum.SHOW_ALL_LISTS_NAMES)
+    queryString = "ls sborn"
+    try:
+        parsedQuery = Parser(queryString)
+        print(True == False)
+    except AttributeError:
+        print(True == True)
+    print("Third test Completed : SHOW_ALL_LISTS_NAMES\n")
 
 
 if __name__ == '__main__':
     main()
+"""
