@@ -9,16 +9,16 @@ class Parser:
     # keyToDelete
     # supposeOnlyOneList
 
-#    def __init__(self, update):
-#        self.__idChat = update['message']['chat']['id']
-#        #self.__chatName = update['message']['chat'][..]
-#        entireText = update['message']['text']
-    def __init__ (self, entireText):
+    def __init__ (self, messageReceived, idChat):
+        if type(messageReceived) is not str:
+            Util.log("ParseError: parameter is not a string")
+            raise AttributeError
+        self.__idChat = idChat    
         # if there is, delete '/' character
-        if entireText[0]=='/':
-            entireText = entireText[1:]
+        if messageReceived[0]=='/':
+            messageReceived = messageReceived[1:]
         # I split the entire text in words where separated by spaces
-        self.__wordsText = Parser.__lowerUntilNumber(entireText.split(' '))
+        self.__wordsText = Parser.__lowerUntilNumber(messageReceived.split(' '))
 
         if self.__wordsText[0] == "add":
             self.__parseAddList() #TODO
@@ -197,68 +197,69 @@ SHOW TOTAL LIST -> total 'listname'
 
 """
 def main():
+    idSborn = "1"
     queryString = "add sbornList"
-    parsedQuery = Parser(queryString)
+    parsedQuery = Parser(queryString, idSborn)
     print(parsedQuery.getCommand() == CommandsEnum.ADD_LIST)
     print(parsedQuery.getListName() == "sbornlist")
     queryString = "Add sbornList"
-    parsedQuery = Parser(queryString)
+    parsedQuery = Parser(queryString, idSborn)
     print(parsedQuery.getCommand() == CommandsEnum.ADD_LIST)
     print((parsedQuery.getListName() == "sbornList") == False)
     print("First test Completed : ADD_LIST\n")
 
     queryString = "Remlist sbornList"
-    parsedQuery = Parser(queryString)
+    parsedQuery = Parser(queryString, idSborn)
     print(parsedQuery.getCommand() == CommandsEnum.REM_LIST)
     print(parsedQuery.getListName() == "sbornlist")
     print("Second test Completed : REM_LIST\n")
 
     queryString = "Remitem sbornList 3"
-    parsedQuery = Parser(queryString)
+    parsedQuery = Parser(queryString, idSborn)
     print(parsedQuery.getCommand() == CommandsEnum.REM_ITEM)
     print(parsedQuery.getListName() == "sbornlist")
     print(parsedQuery.getSupposeOneList() == False)
     queryString = "Remitem sbornList 3.5"
     try:
-        parsedQuery = Parser(queryString)
+        parsedQuery = Parser(queryString, idSborn)
         print(True == False)
     except AttributeError:
         print(True == True)
     queryString = "Remitem sbornList 3"
-    parsedQuery = Parser(queryString)
+    parsedQuery = Parser(queryString, idSborn)
     print(parsedQuery.getCommand() == CommandsEnum.REM_ITEM)
     print(parsedQuery.getListName() == "sbornlist")
     print(parsedQuery.getSupposeOneList() == False)
     queryString = "Remitem 3"
-    parsedQuery = Parser(queryString)
+    parsedQuery = Parser(queryString, idSborn)
     print(parsedQuery.getCommand() == CommandsEnum.REM_ITEM)
     print(parsedQuery.getSupposeOneList() == True)
     print("Second test Completed : REM_ITEM\n")
 
     queryString = "show sbornList"
-    parsedQuery = Parser(queryString)
+    parsedQuery = Parser(queryString, idSborn)
     print(parsedQuery.getCommand() == CommandsEnum.SHOW_LIST)
     print(parsedQuery.getListName() == "sbornlist")
     print(parsedQuery.getSupposeOneList() == False)
     queryString = "show"
-    parsedQuery = Parser(queryString)
+    parsedQuery = Parser(queryString, idSborn)
     print(parsedQuery.getCommand() == CommandsEnum.SHOW_LIST)
     print(parsedQuery.getSupposeOneList() == True)
     print("Third test Completed : SHOW_LIST\n")
 
     queryString = "total sbornList sbuRm"
-    parsedQuery = Parser(queryString)
+    parsedQuery = Parser(queryString, idSborn)
     print(parsedQuery.getCommand() == CommandsEnum.SHOW_TOTAL)
     print(parsedQuery.getListName() == "sbornlist sburm")
     print(parsedQuery.getSupposeOneList() == False)
     queryString = "TOTAL"
-    parsedQuery = Parser(queryString)
+    parsedQuery = Parser(queryString, idSborn)
     print(parsedQuery.getCommand() == CommandsEnum.SHOW_TOTAL)
     print(parsedQuery.getSupposeOneList() == True)
     print("Third test Completed : SHOW_TOTAL\n")
 
     queryString = "sbornList 3 sbornDescription"
-    parsedQuery = Parser(queryString)
+    parsedQuery = Parser(queryString, idSborn)
     print(parsedQuery.getCommand() == CommandsEnum.ADD_ITEM)
     print(parsedQuery.getListName() == "sbornlist")
     print(parsedQuery.getAmount() == 3.0)
@@ -267,11 +268,11 @@ def main():
     print("Third test Completed : ADD_ITEM\n")
 
     queryString = "ls"
-    parsedQuery = Parser(queryString)
+    parsedQuery = Parser(queryString, idSborn)
     print(parsedQuery.getCommand() == CommandsEnum.SHOW_ALL_LISTS_NAMES)
     queryString = "ls sborn"
     try:
-        parsedQuery = Parser(queryString)
+        parsedQuery = Parser(queryString, idSborn)
         print(True == False)
     except AttributeError:
         print(True == True)
