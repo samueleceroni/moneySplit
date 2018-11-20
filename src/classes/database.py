@@ -14,7 +14,7 @@ class Database:
             self.__chatSet[idChat] = Chat(chatName, idChat)
             self.__totChat += 1
         else:
-            raise ValueError
+            raise ValueError("This chat already exists!")
 
     def removeChat(self, idChat):
         if type(idChat) is not str:

@@ -22,17 +22,3 @@ def sendWelcome(phrase):
     rep += "\n\n"
     rep += "Enjoy Sborn :)\n"
     return rep
-
-def showList(listname, id_chat, database):
-    rep = 'Here is ' + listname + ' list:\n'
-    for amount, description in database[id_chat][listname]:
-        rep += str(amount) + ' ' + description + '\n'
-    return rep
-
-def showTotal(listname, id_chat, database):
-    rep = 'Here is ' + listname + ' list total:\n'
-    total = 0
-    for amount, _ in database[id_chat][listname]:
-        total += amount
-    rep += str(total) + ' €'
-    return rep

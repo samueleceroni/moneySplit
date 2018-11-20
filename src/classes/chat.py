@@ -4,6 +4,7 @@ class Chat:
     def __init__(self, name, key):
         if type(name) is not str:
             raise AttributeError
+        self.__nLists = 0
         self.__name = name
         self.__key = key
         self.__lists = {}       #{ 'lists_name' : [('price', 'description'),('price', 'description'),] }
@@ -14,12 +15,14 @@ class Chat:
         if(listname in self.__lists):
             raise ValueError
         self.__lists[listname] = List(listname)
+        self.__nLists += 1
 
     def remList(self, listname):
         if type(listname) is not str:
             raise AttributeError
         if(listname in self.__lists):
             del self.__lists[listname]
+            self.__nLists -= 1
         else:
             raise ValueError
 
@@ -37,10 +40,19 @@ class Chat:
         return self.__key
 
     def getList(self, listname):
-        if(listname in self.__lists):
+        if listname in self.__lists:
             return self.__lists[listname]
         else:
             raise ValueError
+
+    def getNumberOfList(self):
+        return self.__nLists
+
+    def checkList(self, listname):
+        return listname in self.__lists
+
+    def getTheOnlyListName(self):
+        raise Exception("Method still to be done")
 
 '''
 from item import Item

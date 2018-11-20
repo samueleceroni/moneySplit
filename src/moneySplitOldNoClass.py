@@ -318,3 +318,17 @@ ADD ITEM -> 'listname' 'price' 'description'
 SHOW ALL LISTS NAME -> ls
 
 """
+
+"""
+
+main():
+    getBot
+    while True:
+        sleep interval
+        ricevi updates
+        for update in new_updates:
+            try parse update except rep = error, send
+            rep = try execute command except rep = error, send
+            send(rep)
+
+"""
