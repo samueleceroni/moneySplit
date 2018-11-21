@@ -179,6 +179,8 @@ class Parser:
     def getSupposeOneList(self):
         return self.__supposeOneList
 
+    def getItemIdToRem(self):
+        return self.__itemNumToDelete
 """
 AVAIABLE COMMAND:
 ADD LIST -> add 'listname'

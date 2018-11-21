@@ -89,7 +89,21 @@ def __addItem():
 	return "Item added!"
 
 def __remItem():
-	return
+	if textParsed.getSupposeOneList():
+		if chat.getNumberOfList() == 0:
+			return "You can't remove an item if you don't have a list dude!"
+		if chat.getNumberOfList() == 1:
+			listname = chat.getTheOnlyListName()
+		else:
+			return "There is more than one list, please specify it"
+	else:
+		listname = textParsed.getListName()
+		if not chat.checkList(listname):
+			return "There is no such list!"
+	idToRem = textParsed.getItemIdToRem()
+	chat.getList(listname).remElement(idToRem)
+	return "Item removed!"
+
 def __showList():
 	return
 def __showTotal():
