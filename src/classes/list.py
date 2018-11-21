@@ -37,6 +37,11 @@ class List:
                 rep += self.__items[id].toString()
         return rep
 
+    def getTotalToString(self):
+        rep = "List " + self.__listname + '\n'
+        rep += "Total: " + str(self.__totalAmount)
+        return rep
+
 '''
 from util import Util
 

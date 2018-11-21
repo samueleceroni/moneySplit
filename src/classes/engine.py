@@ -105,8 +105,32 @@ def __remItem():
 	return "Item removed!"
 
 def __showList():
-	return
+	if textParsed.getSupposeOneList():
+		if chat.getNumberOfList() == 0:
+			return "You can't remove an item if you don't have a list dude!"
+		if chat.getNumberOfList() == 1:
+			listname = chat.getTheOnlyListName()
+		else:
+			return "There is more than one list, please specify it"
+	else:
+		listname = textParsed.getListName()
+		if not chat.checkList(listname):
+			return "There is no such list!"
+	return chat.getList(listname).toString()
+
 def __showTotal():
-	return
+	if textParsed.getSupposeOneList():
+		if chat.getNumberOfList() == 0:
+			return "You can't remove an item if you don't have a list dude!"
+		if chat.getNumberOfList() == 1:
+			listname = chat.getTheOnlyListName()
+		else:
+			return "There is more than one list, please specify it"
+	else:
+		listname = textParsed.getListName()
+		if not chat.checkList(listname):
+			return "There is no such list!"
+	return chat.getList(listname).getTotalToString()
+
 def __showAllLists():
-	return
+	return chat.getListsName()
